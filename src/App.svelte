@@ -35,7 +35,7 @@
 
 <style>
   form {
-    font-size: 3em;
+    font-size: 1.8em;
     text-align: center;
     display: grid;
     grid-template-columns: 1fr;
