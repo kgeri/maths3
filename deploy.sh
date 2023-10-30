@@ -8,4 +8,4 @@ else
     branch=$1
 fi
 
-(cd $pwd && npm run build && npx wrangler pages publish --branch $branch dist/)
+(cd $pwd && npm run build && npx wrangler pages deploy --branch $branch dist/)
