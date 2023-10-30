@@ -1,47 +1,50 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import { Router, Link, Route } from "svelte-routing";
+  import ResultLog from "./ResultLog.svelte";
+  import ResultRating from "./ResultRating.svelte";
+  import MeasuresChallenge from "./MeasuresChallenge.svelte";
+  import i18n from "./i18n";
+  import type { Result, ResultEvaluator } from "./model";
+
+  export let url = "";
+  let challenge: ResultEvaluator;
+  let resultLog: Result[] = [];
+
+  function evaluate() {
+    const result = challenge.evaluate();
+    resultLog = [result, ...resultLog];
+  }
 </script>
 
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+  <!-- <ChallengeForm /> -->
+  <Router {url}>
+    <nav>
+      <Link to="">{i18n.types.measures}</Link>
+    </nav>
 
-  <div class="card">
-    <Counter />
-  </div>
+    <form on:submit|preventDefault={evaluate}>
+      <Route path="/"><MeasuresChallenge bind:this={challenge} /></Route>
 
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+      <input type="submit" value={i18n.submit} />
+    </form>
+  </Router>
+  <ResultRating {resultLog} />
+  <ResultLog {resultLog} />
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  form {
+    font-size: 3em;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    align-content: center;
+    align-items: center;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
+
+  input[type="submit"] {
+    grid-area: 2 / 1 / 3 / 6;
   }
 </style>
