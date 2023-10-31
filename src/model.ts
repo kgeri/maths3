@@ -28,6 +28,13 @@ export const WeightUnits = {
     kg: new Unit("kg", 1000),
 } as const;
 
+export const VolumeUnits = {
+    mm: new Unit("ml", 1),
+    cm: new Unit("cl", 10),
+    dm: new Unit("dl", 100),
+    m: new Unit("l", 1000),
+} as const;
+
 export const DistanceUnits = {
     mm: new Unit("mm", 1),
     cm: new Unit("cm", 10),

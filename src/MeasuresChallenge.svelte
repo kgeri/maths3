@@ -3,16 +3,16 @@
     import ChallengeInput from "./ChallengeInput.svelte";
     import ChallengeValue from "./ChallengeValue.svelte";
     import {
-        DistanceUnits,
         Unit,
+        VolumeUnits,
         WeightUnits,
         nextInt,
         pickOne,
         pickTwo,
-        type Result,
+        type Result
     } from "./model";
 
-    const SupportedTypes = [WeightUnits, DistanceUnits];
+    const SupportedTypes = [WeightUnits, VolumeUnits];
     const Max = 2000; // Range will be [unitA.multiplier, Max) - in the smallest unit (eg. g, mm, ...)
 
     let a: number;
