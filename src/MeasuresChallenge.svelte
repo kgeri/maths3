@@ -13,7 +13,7 @@
     } from "./model";
 
     const SupportedTypes = [WeightUnits, DistanceUnits];
-    const Max = 2000;
+    const Max = 2000; // Range will be [unitA.multiplier, Max) - in the smallest unit (eg. g, mm, ...)
 
     let a: number;
     let b: number;
@@ -38,16 +38,18 @@
     function next() {
         const type = pickOne(SupportedTypes);
         const units = Object.values(type);
-        const rnd = nextInt(1, Max);
+        const smallestUnit = units[0];
 
         [unitA, unitB] = pickTwo(units);
         if (unitA.multiplier < unitB.multiplier) {
-            // unitB is the larger unit => randomizing unitA
-            b = Math.round(unitA.convert(rnd, unitB));
+            // unitB is the larger unit => using range [unitB, max)
+            const rnd = nextInt(unitB.multiplier, Max);
+            b = Math.round(smallestUnit.convert(rnd, unitB));
             a = unitB.convert(b, unitA);
         } else {
-            // unitA is the larger unit => randomizing that
-            a = Math.round(unitB.convert(rnd, unitA));
+            // unitA is the larger unit => using range [unitA, max)
+            const rnd = nextInt(unitA.multiplier, Max);
+            a = Math.round(smallestUnit.convert(rnd, unitA));
             b = unitA.convert(a, unitB);
         }
     }

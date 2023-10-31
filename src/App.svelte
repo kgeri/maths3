@@ -34,6 +34,10 @@
 </main>
 
 <style>
+  nav {
+    font-size: small;
+  }
+
   form {
     font-size: 1.8em;
     text-align: center;
