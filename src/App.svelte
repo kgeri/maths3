@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { Router, Link, Route } from "svelte-routing";
+  import { Link, link, Route, Router } from "svelte-routing";
+  import MeasuresChallenge from "./MeasuresChallenge.svelte";
   import ResultLog from "./ResultLog.svelte";
   import ResultRating from "./ResultRating.svelte";
-  import MeasuresChallenge from "./MeasuresChallenge.svelte";
+  import RoundingChallenge from "./RoundingChallenge.svelte";
   import i18n from "./i18n";
   import type { Result, ResultEvaluator } from "./model";
 
@@ -17,14 +18,16 @@
 </script>
 
 <main>
-  <!-- <ChallengeForm /> -->
   <Router {url}>
     <nav>
-      <Link to="">{i18n.types.measures}</Link>
+      <a href="/" class="link" use:link>{i18n.types.measures}</a>
+      <a href="/rounding" class="link" use:link>{i18n.types.rounding}</a>
     </nav>
 
     <form on:submit|preventDefault={evaluate}>
       <Route path="/"><MeasuresChallenge bind:this={challenge} /></Route>
+      <Route path="/rounding"><RoundingChallenge bind:this={challenge} /></Route
+      >
 
       <input type="submit" value={i18n.submit} />
     </form>
@@ -36,6 +39,11 @@
 <style>
   nav {
     font-size: small;
+  }
+
+  nav a + a:before {
+    content: "|";
+    padding: 0 0.2em;
   }
 
   form {

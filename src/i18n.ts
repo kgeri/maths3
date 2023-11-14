@@ -9,5 +9,6 @@ export default {
     type: "Feladat",
     types: {
         "measures": "Mértékegységek",
+        "rounding": "Kerekítés",
     },
 };
