@@ -65,7 +65,14 @@
 <tr>
     {#if digits.length > 0}
         {#each digits as _, i}
-            <input type="text" maxlength="1" bind:this={inputs[i]} on:input={onInput} on:focus={onFocus} />
+            <input
+                type="text"
+                maxlength="1"
+                inputmode="numeric"
+                bind:this={inputs[i]}
+                on:input={onInput}
+                on:focus={onFocus}
+            />
         {/each}
     {:else if chars}
         {#each chars as c}
