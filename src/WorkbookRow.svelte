@@ -11,9 +11,13 @@
     let digits: N[] = [];
     const inputs: HTMLInputElement[] = Array<HTMLInputElement>(width);
 
-    onMount(() => {
+    onMount(reset);
+
+    export function reset() {
+        for (let i = 0; i < digits.length; i++) digits[i] = null;
+        inputs.forEach((ie) => (ie.value = <any>null));
         inputs.at(-1)?.focus();
-    });
+    }
 
     function onInput(event: Event) {
         event.preventDefault();
@@ -34,8 +38,11 @@
         const nextInput = inputs.at(i - 1);
         if (nextInput) {
             nextInput.focus();
-            nextInput.select();
         }
+    }
+
+    function onFocus(event: Event) {
+        (event.target as HTMLInputElement).select();
     }
 
     function recomputeCharsOrDigits(value: string | N) {
@@ -58,7 +65,7 @@
 <tr>
     {#if digits.length > 0}
         {#each digits as _, i}
-            <input type="text" maxlength="1" bind:this={inputs[i]} on:input={onInput} />
+            <input type="text" maxlength="1" bind:this={inputs[i]} on:input={onInput} on:focus={onFocus} />
         {/each}
     {:else if chars}
         {#each chars as c}

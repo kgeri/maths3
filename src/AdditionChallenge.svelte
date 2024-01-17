@@ -11,6 +11,7 @@
     let b: number;
     let op: string;
     let response: number;
+    let responseInput: WorkbookRow;
 
     export function evaluate(): Result {
         const expected = op == '+' ? a + b : a - b;
@@ -19,7 +20,7 @@
             message: `${a} ${op} ${b} = ${response} (${expected})`,
         };
 
-        response = 0;
+        responseInput.reset();
         next();
 
         return result;
@@ -39,7 +40,7 @@
     <WorkbookGrid>
         <WorkbookRow width={5} value={`${a}`} />
         <WorkbookRow width={5} value={`${op}${b}`} />
-        <WorkbookRow width={5} bind:value={response} editable />
+        <WorkbookRow width={5} bind:this={responseInput} bind:value={response} editable />
     </WorkbookGrid>
 </div>
 
