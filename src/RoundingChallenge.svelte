@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import ChallengeInput from "./ChallengeInput.svelte";
-    import ChallengeValue from "./ChallengeValue.svelte";
-    import { nextInt, type Result } from "./model";
+    import { onMount } from 'svelte';
+    import ChallengeInput from './ChallengeInput.svelte';
+    import ChallengeValue from './ChallengeValue.svelte';
+    import { nextInt, type Result } from './model';
 
     const Max = 500; // Range will be [0, Max)
 
