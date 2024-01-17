@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+
     type N = number | null;
 
     export let width = 1;
@@ -7,6 +9,34 @@
 
     let chars: string[];
     let digits: N[] = [];
+    const inputs: HTMLInputElement[] = Array<HTMLInputElement>(width);
+
+    onMount(() => {
+        inputs.at(-1)?.focus();
+    });
+
+    function onInput(event: Event) {
+        event.preventDefault();
+
+        const inputEl = event.target as HTMLInputElement;
+        const i = inputs.indexOf(inputEl);
+
+        const digit = parseInt((event as InputEvent).data || '') % 10;
+        if (isNaN(digit)) {
+            inputEl.value = <any>null;
+            digits[i] = null;
+        } else {
+            inputEl.value = String(digit);
+            digits[i] = digit;
+        }
+
+        // Focus on the previous input box (go backwards)
+        const nextInput = inputs.at(i - 1);
+        if (nextInput) {
+            nextInput.focus();
+            nextInput.select();
+        }
+    }
 
     function recomputeCharsOrDigits(value: string | N) {
         if (editable) {
@@ -23,16 +53,12 @@
 
     $: recomputeCharsOrDigits(value);
     $: value = digits.reduce((acc, d) => (acc ?? 0) * 10 + (d ?? 0), 0);
-
-    function onFocus(event: Event) {
-        (event.target as HTMLInputElement).select();
-    }
 </script>
 
 <tr>
     {#if digits.length > 0}
         {#each digits as _, i}
-            <input type="number" maxlength="1" bind:value={digits[i]} on:focus={onFocus} />
+            <input type="text" maxlength="1" bind:this={inputs[i]} on:input={onInput} />
         {/each}
     {:else if chars}
         {#each chars as c}
@@ -65,16 +91,4 @@
     input:focus-visible {
         background-color: lightblue;
     }
-
-    /* Hide the spinner hack */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-    input[type='number'] {
-        appearance: textfield;
-        -moz-appearance: textfield;
-    }
-    /* End of hack */
 </style>
