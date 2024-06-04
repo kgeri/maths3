@@ -1,18 +1,10 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import ChallengeInput from "./ChallengeInput.svelte";
-    import ChallengeValue from "./ChallengeValue.svelte";
-    import {
-        Unit,
-        VolumeUnits,
-        WeightUnits,
-        nextInt,
-        pickOne,
-        pickTwo,
-        type Result
-    } from "./model";
+    import { onMount } from 'svelte';
+    import ChallengeInput from './ChallengeInput.svelte';
+    import ChallengeValue from './ChallengeValue.svelte';
+    import { Unit, DistanceUnits, VolumeUnits, WeightUnits, nextInt, pickOne, pickTwo, type Result } from './model';
 
-    const SupportedTypes = [WeightUnits, VolumeUnits];
+    const SupportedTypes = [DistanceUnits, WeightUnits, VolumeUnits];
     const Max = 2000; // Range will be [unitA.multiplier, Max) - in the smallest unit (eg. g, mm, ...)
 
     let a: number;
