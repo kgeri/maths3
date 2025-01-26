@@ -1,10 +1,10 @@
 export type Result = {
     correct: boolean;
     message: string;
-}
+};
 
 export interface ResultEvaluator {
-    evaluate(): Result;
+    evaluate(): Result | null;
 }
 
 export class Unit {

@@ -4,7 +4,9 @@
 
 <style>
     table {
-        border-spacing: 0px;
+        border: 1px solid lightsteelblue;
         border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
     }
 </style>

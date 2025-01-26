@@ -11,6 +11,6 @@ export default {
         "measures": "Mértékegységek",
         "rounding": "Kerekítés",
         "addition": "Összeadás, kivonás",
-        "mb1k": "Szorzás 1000 alatt",
+        "mulsingle": "Szorzás (egyjegyű)",
     },
 };

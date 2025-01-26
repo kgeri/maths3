@@ -3,11 +3,11 @@
     import AdditionChallenge from './AdditionChallenge.svelte';
     import i18n from './i18n';
     import MeasuresChallenge from './MeasuresChallenge.svelte';
-    import type { Result, ResultEvaluator } from './model';
-    import MultBelow1000Challenge from './MultBelow1000Challenge.svelte';
+    import MulSingleChallenge from './MulSingleChallenge.svelte';
     import ResultLog from './ResultLog.svelte';
     import ResultRating from './ResultRating.svelte';
     import RoundingChallenge from './RoundingChallenge.svelte';
+    import type { Result, ResultEvaluator } from './model';
 
     export let url = '';
     let challenge: ResultEvaluator;
@@ -15,7 +15,9 @@
 
     function evaluate() {
         const result = challenge.evaluate();
-        resultLog = [result, ...resultLog];
+        if (result) {
+            resultLog = [result, ...resultLog];
+        }
     }
 </script>
 
@@ -25,14 +27,15 @@
             <a href="/" class="link" use:link>{i18n.types.measures}</a>
             <a href="/rounding" class="link" use:link>{i18n.types.rounding}</a>
             <a href="/addition" class="link" use:link>{i18n.types.addition}</a>
-            <a href="/mb1k" class="link" use:link>{i18n.types.mb1k}</a>
+            <a href="/mulsingle" class="link" use:link>{i18n.types.mulsingle}</a>
         </nav>
 
         <form on:submit|preventDefault={evaluate}>
             <Route path="/"><MeasuresChallenge bind:this={challenge} /></Route>
-            <Route path="/rounding"><RoundingChallenge bind:this={challenge} /></Route>
             <Route path="/addition"><AdditionChallenge bind:this={challenge} /></Route>
-            <Route path="/mb1k"><MultBelow1000Challenge bind:this={challenge} /></Route>
+            <Route path="/mb1k"><MulSingleChallenge bind:this={challenge} /></Route><!-- legacy -->
+            <Route path="/mulsingle"><MulSingleChallenge bind:this={challenge} /></Route>
+            <Route path="/rounding"><RoundingChallenge bind:this={challenge} /></Route>
 
             <input type="submit" value={i18n.submit} />
         </form>
