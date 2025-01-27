@@ -10,18 +10,21 @@
 
     let a: number;
     let b: number;
+    let helpers: Digits[] = [];
     let responseElement: Digits;
 
     export function evaluate(): Result | null {
         const response = responseElement.getValue();
         if (!response) return null;
 
+        const expected = Math.floor(a / b);
         const result = {
-            correct: response == a * b,
-            message: `${a} * ${b} = ${response}`,
+            correct: response === expected,
+            message: `${a} : ${b} = ${response} (${expected})`,
         };
 
         responseElement.clear();
+        for (let i = 0; i < helpers.length; i++) helpers[i].clear();
         next();
 
         return result;
@@ -39,9 +42,14 @@
 <div class="question">
     <Workbook>
         <Row>
-            <Chars width={7} value={`${a}·${b}=`} />
-            <Digits width={4} bind:this={responseElement} dir="rtl" />
+            <Chars width={7} value={`${a}:${b}=`} />
+            <Digits width={4} bind:this={responseElement} dir="ltr" />
         </Row>
+        {#each { length: 4 } as _, i}
+            <Row>
+                <Digits width={4} bind:this={helpers[i]} dir="ltr" />
+            </Row>
+        {/each}
     </Workbook>
 </div>
 

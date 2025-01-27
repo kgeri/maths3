@@ -8,6 +8,7 @@
     import ResultRating from './ResultRating.svelte';
     import RoundingChallenge from './RoundingChallenge.svelte';
     import type { Result, ResultEvaluator } from './model';
+    import DivSingleChallenge from './DivSingleChallenge.svelte';
 
     export let url = '';
     let challenge: ResultEvaluator;
@@ -28,11 +29,13 @@
             <a href="/rounding" class="link" use:link>{i18n.types.rounding}</a>
             <a href="/addition" class="link" use:link>{i18n.types.addition}</a>
             <a href="/mulsingle" class="link" use:link>{i18n.types.mulsingle}</a>
+            <a href="/divsingle" class="link" use:link>{i18n.types.divsingle}</a>
         </nav>
 
         <form on:submit|preventDefault={evaluate}>
             <Route path="/"><MeasuresChallenge bind:this={challenge} /></Route>
             <Route path="/addition"><AdditionChallenge bind:this={challenge} /></Route>
+            <Route path="/divsingle"><DivSingleChallenge bind:this={challenge} /></Route>
             <Route path="/mb1k"><MulSingleChallenge bind:this={challenge} /></Route><!-- legacy -->
             <Route path="/mulsingle"><MulSingleChallenge bind:this={challenge} /></Route>
             <Route path="/rounding"><RoundingChallenge bind:this={challenge} /></Route>
@@ -66,5 +69,6 @@
 
     input[type='submit'] {
         grid-area: 2 / 1 / 3 / 6;
+        cursor: pointer;
     }
 </style>

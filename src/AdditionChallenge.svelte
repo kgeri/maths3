@@ -12,17 +12,19 @@
     let a: number;
     let b: number;
     let op: string;
-    let response: number | null;
     let responseElement: Digits;
 
-    export function evaluate(): Result {
+    export function evaluate(): Result | null {
+        const response = responseElement.getValue();
+        if (!response) return null;
+
         const expected = op == '+' ? a + b : a - b;
         const result = {
             correct: response === expected,
             message: `${a} ${op} ${b} = ${response} (${expected})`,
         };
 
-        response = null;
+        responseElement.clear();
         next();
 
         return result;
@@ -48,7 +50,7 @@
             <Chars width={5} value={`${op}${b}`} />
         </Row>
         <Row>
-            <Digits width={5} bind:this={responseElement} bind:value={response} dir="rtl" />
+            <Digits width={5} bind:this={responseElement} dir="rtl" />
         </Row>
     </Workbook>
 </div>

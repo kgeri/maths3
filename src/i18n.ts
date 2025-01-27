@@ -8,9 +8,10 @@ export default {
     submit: "Mehet!",
     type: "Feladat",
     types: {
-        "measures": "Mértékegységek",
-        "rounding": "Kerekítés",
         "addition": "Összeadás, kivonás",
+        "divsingle": "Osztás (egyjegyű)",
+        "measures": "Mértékegységek",
         "mulsingle": "Szorzás (egyjegyű)",
+        "rounding": "Kerekítés",
     },
 };
